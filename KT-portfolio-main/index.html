@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Krishna Topale — Personal Portfolio">
+  <title>Krishna Topale | Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0D0F14;
+      --card: #13161D;
+      --accent: #F5A623;
+      --sage: #7DB89A;
+      --text: #EDE8DC;
+      --muted: #8A8578;
+      --dim: #565248;
+      --border: rgba(237, 232, 220, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at 80% 10%, rgba(245,166,35,.08), transparent 25%),
+        radial-gradient(circle at 10% 60%, rgba(125,184,154,.06), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(13,15,20,.78);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(245,166,35,.15);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 500px;
+      height: 500px;
+      right: -160px;
+      top: 12%;
+      animation: spin 22s linear infinite;
+    }
+
+    .hero::after {
+      width: 320px;
+      height: 320px;
+      right: -70px;
+      top: 25%;
+      border-color: rgba(125,184,154,.15);
+      animation: spin 16s linear infinite reverse;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+
+    .eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      color: var(--accent);
+      font-size: .82rem;
+      margin-bottom: 18px;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(3.4rem, 9vw, 7rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+      margin-bottom: 25px;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 32px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 21px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: .25s ease;
+      font-weight: 600;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #17130c;
+      border-color: var(--accent);
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+    .btn.secondary:hover { border-color: var(--sage); color: var(--sage); }
+
+    /* Sections */
+    section { padding: 105px 0; }
+
+    .section-label {
+      color: var(--accent);
+      font-family: "JetBrains Mono", monospace;
+      font-size: .78rem;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      margin-bottom: 42px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(19,22,29,.82);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: .3s ease;
+      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(245,166,35,.35);
+    }
+
+    .card h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card p { color: var(--muted); }
+
+    /* Skills */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .skill {
+      margin-bottom: 19px;
+    }
+
+    .skill-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      font-size: .9rem;
+    }
+
+    .bar {
+      height: 7px;
+      border-radius: 20px;
+      background: #242831;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      width: var(--level);
+      background: linear-gradient(90deg, var(--accent), var(--sage));
+      border-radius: inherit;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      padding: 7px 11px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: .75rem;
+    }
+
+    /* Projects */
+    .projects {
+      display: grid;
+      gap: 18px;
+    }
+
+    .project {
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
+    }
+
+    .project-number {
+      color: var(--accent);
+      font-family: "JetBrains Mono", monospace;
+      font-size: .8rem;
+    }
+
+    .project h3 { margin: 7px 0; font-size: 1.35rem; }
+    .project p { color: var(--muted); }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .project-tags span {
+      color: var(--sage);
+      font-size: .78rem;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    /* Experience */
+    .timeline {
+      border-left: 1px solid var(--border);
+      padding-left: 28px;
+      display: grid;
+      gap: 35px;
+    }
+
+    .timeline-item { position: relative; }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      background: var(--accent);
+      border-radius: 50%;
+      left: -33px;
+      top: 8px;
+      box-shadow: 0 0 15px rgba(245,166,35,.45);
+    }
+
+    .date {
+      color: var(--sage);
+      font-family: "JetBrains Mono", monospace;
+      font-size: .78rem;
+      margin-bottom: 5px;
+    }
+
+    .timeline h3 { margin-bottom: 5px; }
+    .timeline p { color: var(--muted); }
+
+    /* Contact */
+    .contact-box {
+      text-align: center;
+      padding: 65px 25px;
+      background: linear-gradient(135deg, rgba(245,166,35,.07), rgba(125,184,154,.05));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    .contact-box h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      margin-bottom: 14px;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 28px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: center;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links { gap: 12px; font-size: .78rem; }
+      .logo { font-size: 1.2rem; }
+      .grid, .skills { grid-template-columns: 1fr; }
+      h1 { font-size: 3.5rem; }
+      section { padding: 75px 0; }
+      .nav-links li:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a class="logo" href="#home">K<span>.</span>Topale</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow">HELLO, I'M KRISHNA</div>
+          <h1>Creative <span>Developer</span><br>& Tech Enthusiast.</h1>
+          <p>
+            I build thoughtful digital experiences by combining technology,
+            design, and problem-solving. Welcome to my personal portfolio.
+          </p>
+          <div class="buttons">
+            <a class="btn primary" href="#projects">View My Work</a>
+            <a class="btn secondary" href="#contact">Let's Connect</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-label">01 / ABOUT</div>
+        <h2 class="section-title">A little about me.</h2>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Who I Am</h3>
+            <p>
+              I'm Krishna Topale, a computer science student interested in
+              building useful, modern, and visually engaging technology.
+              I enjoy learning by creating projects and turning ideas into
+              working products.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>What I Do</h3>
+            <p>
+              My interests include web development, software development,
+              AI/ML, databases, cloud technologies, and UI/UX. I'm continuously
+              expanding my technical skills through hands-on projects.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-label">02 / SKILLS</div>
+        <h2 class="section-title">Things I work with.</h2>
+
+        <div class="skills">
+          <div class="card">
+            <div class="skill">
+              <div class="skill-head"><span>Python</span><span>80%</span></div>
+              <div class="bar"><span style="--level:80%"></span></div>
+            </div>
+
+            <div class="skill">
+              <div class="skill-head"><span>HTML / CSS</span><span>85%</span></div>
+              <div class="bar"><span style="--level:85%"></span></div>
+            </div>
+
+            <div class="skill">
+              <div class="skill-head"><span>JavaScript</span><span>70%</span></div>
+              <div class="bar"><span style="--level:70%"></span></div>
+            </div>
+
+            <div class="skill">
+              <div class="skill-head"><span>SQL / Databases</span><span>70%</span></div>
+              <div class="bar"><span style="--level:70%"></span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Tools & Technologies</h3>
+            <div class="pills">
+              <span class="pill">Python</span>
+              <span class="pill">JavaScript</span>
+              <span class="pill">HTML</span>
+              <span class="pill">CSS</span>
+              <span class="pill">React</span>
+              <span class="pill">Next.js</span>
+              <span class="pill">FastAPI</span>
+              <span class="pill">PostgreSQL</span>
+              <span class="pill">Git</span>
+              <span class="pill">GitHub</span>
+              <span class="pill">Tailwind CSS</span>
+              <span class="pill">Figma</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-label">03 / PROJECTS</div>
+        <h2 class="section-title">Selected work.</h2>
+
+        <div class="projects">
+          <article class="project">
+            <div class="project-number">PROJECT 01</div>
+            <h3>Intelligent Land Record Digitization & Validation System</h3>
+            <p>
+              An end-to-end system designed to digitize unstructured land
+              records, extract structured information, validate records,
+              and provide a verification workflow.
+            </p>
+            <div class="project-tags">
+              <span>Python</span>
+              <span>FastAPI</span>
+              <span>PostgreSQL</span>
+              <span>OCR</span>
+              <span>AI/ML</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-number">PROJECT 02</div>
+            <h3>Personal Portfolio Website</h3>
+            <p>
+              A responsive portfolio website presenting skills, projects,
+              experience, and contact information with a modern visual style.
+            </p>
+            <div class="project-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>GitHub Pages</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-number">PROJECT 03</div>
+            <h3>Student / Academic Projects</h3>
+            <p>
+              A collection of academic and learning projects created while
+              exploring programming, databases, web development, cloud
+              computing, and artificial intelligence.
+            </p>
+            <div class="project-tags">
+              <span>Programming</span>
+              <span>DBMS</span>
+              <span>Cloud</span>
+              <span>AI/ML</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-label">04 / EXPERIENCE</div>
+        <h2 class="section-title">My journey so far.</h2>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="date">CURRENT</div>
+            <h3>B.Tech Computer Science Student</h3>
+            <p>
+              Developing technical skills through coursework, projects,
+              programming practice, and hands-on development.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="date">PROJECT EXPERIENCE</div>
+            <h3>Backend & Database Development</h3>
+            <p>
+              Worked with Python, FastAPI, SQLAlchemy and PostgreSQL to build
+              APIs, database models, authentication, and backend workflows.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="date">LEARNING</div>
+            <h3>Web & Cloud Technologies</h3>
+            <p>
+              Exploring modern web development, Git/GitHub, Linux,
+              cloud computing, and deployment workflows.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <div class="section-label">05 / CONTACT</div>
+          <h2>Let's build something.</h2>
+          <p>
+            Have a project, internship opportunity, or idea you'd like to
+            discuss? Feel free to reach out.
+          </p>
+          <div class="buttons" style="justify-content:center;">
+            <a class="btn primary" href="mailto:your-email@example.com">Email Me</a>
+            <a class="btn secondary" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn secondary" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Krishna Topale · Built with HTML & CSS
+    </div>
+  </footer>
+
+</body>
+</html>
